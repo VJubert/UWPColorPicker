@@ -22,24 +22,27 @@ namespace UWPColor
         private double _x;
         private double _y;
 
-        private Color _startColor;
-        public Color StartColor
+        public static readonly DependencyProperty ActualColorProperty = DependencyProperty.Register(
+            "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
+
+        public Color ActualColor
         {
-            get { return _startColor; }
+            get { return (Color)GetValue(ActualColorProperty); }
             set
             {
-                _startColor = value;
+                SetValue(ActualColorProperty, value);
                 double[] hsl = RgbToHsl(value);
                 Color v = HslToRgb(hsl[0], 1, 0.5);
                 _choiceGrid.Background = new SolidColorBrush(v);
                 _actSpectre = v;
-                _actColor = new SolidColorBrush(_startColor);
+                _actColor = new SolidColorBrush(value);
                 _actColorElement.Fill = _actColor;
             }
         }
 
         public delegate void ActualColorEvent(Color newColor);
         public event ActualColorEvent ActualColorChanged;
+
         private void DefGrid()
         {
             var a = new ColumnDefinition { Width = new GridLength(150, GridUnitType.Star) };
@@ -265,17 +268,18 @@ namespace UWPColor
             HorizontalAlignment = HorizontalAlignment.Stretch;
             _choiceGrid.Loaded += _choiceGrid_Loaded;
             _spectreChoice.Loaded += _spectreChoice_Loaded;
+            ActualColor = Colors.Red;
         }
 
         private void _spectreChoice_Loaded(object sender, RoutedEventArgs e)
         {
-            double h = RgbToHsl(StartColor)[0];
+            double h = RgbToHsl(ActualColor)[0];
             Canvas.SetTop(_fleche, (h / 360f) * _spectreChoice.ActualHeight);
         }
 
         private void _choiceGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            double[] hsl = RgbToHsl(StartColor);
+            double[] hsl = RgbToHsl(ActualColor);
             UpdatePosition(_choiceGrid.ActualHeight * (1 - 2 * hsl[2]), _choiceGrid.ActualWidth * hsl[1]);
         }
 
@@ -322,6 +326,7 @@ namespace UWPColor
             var actColor = Color.FromArgb(255, newr, newg, newb);
             _actColor = new SolidColorBrush(actColor);
             _actColorElement.Fill = _actColor;
+            ActualColor = actColor;
             ActualColorChanged?.Invoke(actColor);
         }
 
