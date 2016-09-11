@@ -23,21 +23,28 @@ namespace UWPColor
         private double _y;
 
         public static readonly DependencyProperty ActualColorProperty = DependencyProperty.Register(
-            "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
+            "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), ActualColorChangedCallback));
+
+        private static void ActualColorChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var test = dependencyObject as ColorPicker;
+            test?.UpdateActualColor();
+        }
+
+        private void UpdateActualColor()
+        {
+            double[] hsl = RgbToHsl(ActualColor);
+            Color v = HslToRgb(hsl[0], 1, 0.5);
+            _choiceGrid.Background = new SolidColorBrush(v);
+            _actSpectre = v;
+            _actColor = new SolidColorBrush(ActualColor);
+            _actColorElement.Fill = _actColor;
+        }
 
         public Color ActualColor
         {
             get { return (Color)GetValue(ActualColorProperty); }
-            set
-            {
-                SetValue(ActualColorProperty, value);
-                double[] hsl = RgbToHsl(value);
-                Color v = HslToRgb(hsl[0], 1, 0.5);
-                _choiceGrid.Background = new SolidColorBrush(v);
-                _actSpectre = v;
-                _actColor = new SolidColorBrush(value);
-                _actColorElement.Fill = _actColor;
-            }
+            set { SetValue(ActualColorProperty, value); }
         }
 
         public delegate void ActualColorEvent(Color newColor);

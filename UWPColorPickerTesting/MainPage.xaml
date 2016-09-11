@@ -6,11 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpColor="using:UWPColor"
-    mc:Ignorable="d">
+    mc:Ignorable="d" >
 
     <Grid>
-        
-       <uwpColor:ColorPicker
+
+        <uwpColor:ColorPicker
            ActualColor="{Binding TestColor, Mode=TwoWay}"
            Background="Black"
            />
