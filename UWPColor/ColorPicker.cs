@@ -21,6 +21,7 @@ namespace UWPColor
         private Grid _gridEllipse;
         private double _x;
         private double _y;
+        private bool _spectrChanged;
 
         public static readonly DependencyProperty ActualColorProperty = DependencyProperty.Register(
             "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), ActualColorChangedCallback));
@@ -36,7 +37,11 @@ namespace UWPColor
             double[] hsl = RgbToHsl(ActualColor);
             Color v = HslToRgb(hsl[0], 1, 0.5);
             _choiceGrid.Background = new SolidColorBrush(v);
-            _actSpectre = v;
+            if (!_spectrChanged)
+            {
+                _actSpectre = v;
+            }
+            _spectrChanged = false;
             _actColor = new SolidColorBrush(ActualColor);
             _actColorElement.Fill = _actColor;
         }
@@ -128,8 +133,11 @@ namespace UWPColor
             //_fleche
             x = x <= 0 ? 0 : x;
             Canvas.SetTop(_fleche, x);
-            _actSpectre = HslToRgb(x / t * 360, 1, 0.5);
-            _actColorElement.Fill = new SolidColorBrush(RecalculerCouleur());
+            _actSpectre = HslToRgb(x / t * 360f, 1, 0.5);
+            _spectrChanged = true;
+            ActualColor = RecalculerCouleur();
+            ActualColorChanged?.Invoke(ActualColor);
+            _actColorElement.Fill = new SolidColorBrush(ActualColor);
             _choiceGrid.Background = new SolidColorBrush(_actSpectre);
 
         }

@@ -18,13 +18,13 @@ namespace UWPColorPickerTesting
             set
             {
                 _testColor = value;
-                Debug.Write(value);
+                Debug.WriteLine(value);
             }
         }
 
         public TestingVM()
         {
-            TestColor = Color.FromArgb(255,255,255,255);
+            TestColor = Color.FromArgb(255, 255, 255, 255);
         }
     }
 }
