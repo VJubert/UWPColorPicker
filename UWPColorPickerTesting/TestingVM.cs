@@ -19,6 +19,7 @@ namespace UWPColorPickerTesting
 
         public TestingVM()
         {
+            TestColor = Colors.Yellow;
         }
     }
 }

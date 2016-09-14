@@ -32,13 +32,33 @@ namespace UWPColor
             set { SetValue(EndColorProperty, value); }
         }
 
+        public static readonly DependencyProperty SpectrePointerColorProperty = DependencyProperty.Register(
+            "SpectrePointerColor", typeof (Color), typeof (ColorPicker), new PropertyMetadata(default(Color), SpectrePointerColorChangedCallback));
+
+        private static void SpectrePointerColorChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var classe = dependencyObject as ColorPicker;
+            classe?.UpdateSpectrePointerColor();
+        }
+
+        private void UpdateSpectrePointerColor()
+        {
+            _fleche.Fill=new SolidColorBrush(SpectrePointerColor);
+        }
+
+        public Color SpectrePointerColor
+        {
+            get { return (Color) GetValue(SpectrePointerColorProperty); }
+            set { SetValue(SpectrePointerColorProperty, value); }
+        }
+
         public static readonly DependencyProperty ActualColorProperty = DependencyProperty.Register(
             "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), ActualColorChangedCallback));
 
         private static void ActualColorChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var test = dependencyObject as ColorPicker;
-            test?.UpdateActualColor();
+            var classe = dependencyObject as ColorPicker;
+            classe?.UpdateActualColor();
         }
 
         private void UpdateActualColor()

@@ -11,8 +11,9 @@
     <Grid>
 
         <uwpColor:ColorPicker
+            ActualColor="{Binding TestColor, Mode=OneTime}"
            EndColor="{Binding TestColor, Mode=TwoWay}"
-           Background="Black"
+            SpectrePointerColor="Black"
            />
 
     </Grid>
