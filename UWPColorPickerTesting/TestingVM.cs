@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Windows.UI;
 
 namespace UWPColorPickerTesting
@@ -24,7 +19,6 @@ namespace UWPColorPickerTesting
 
         public TestingVM()
         {
-            TestColor = Color.FromArgb(255, 255, 255, 255);
         }
     }
 }

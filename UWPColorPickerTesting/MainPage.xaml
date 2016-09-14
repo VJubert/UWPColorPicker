@@ -11,7 +11,7 @@
     <Grid>
 
         <uwpColor:ColorPicker
-           ActualColor="{Binding TestColor, Mode=TwoWay}"
+           EndColor="{Binding TestColor, Mode=TwoWay}"
            Background="Black"
            />
 

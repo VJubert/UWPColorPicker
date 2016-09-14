@@ -23,6 +23,15 @@ namespace UWPColor
         private double _y;
         private bool _spectrChanged;
 
+        public static readonly DependencyProperty EndColorProperty = DependencyProperty.Register(
+            "EndColor", typeof (Color), typeof (ColorPicker), new PropertyMetadata(default(Color)));
+
+        public Color EndColor
+        {
+            get { return (Color) GetValue(EndColorProperty); }
+            set { SetValue(EndColorProperty, value); }
+        }
+
         public static readonly DependencyProperty ActualColorProperty = DependencyProperty.Register(
             "ActualColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), ActualColorChangedCallback));
 
@@ -118,13 +127,19 @@ namespace UWPColor
             {
                 SpectreChoiceOnPointerPressed(sender, args);
                 PointerMoved += SpectreChoiceOnPointerPressed;
+                PointerReleased += SpectreChoicePointerReleased;
             };
-            PointerReleased += (sender, args) => PointerMoved -= SpectreChoiceOnPointerPressed;
             SetColumn(_spectreChoice, 1);
             SetRow(_spectreChoice, 2);
 
         }
 
+        private void SpectreChoicePointerReleased(object sender, PointerRoutedEventArgs pointerRoutedEventArgs)
+        {
+            PointerMoved -= SpectreChoiceOnPointerPressed;
+            EndColor = ActualColor;
+            PointerReleased -= SpectreChoicePointerReleased;
+        }
         private void SpectreChoiceOnPointerPressed(object sender, PointerRoutedEventArgs args)
         {
 
@@ -209,10 +224,10 @@ namespace UWPColor
             {
                 UpdatingColor(sender, args);
                 PointerMoved += UpdatingColor;
+                PointerReleased += GridChoicePointerReleased;
             };
             _choiceGrid.SizeChanged += ColorPicker_SizeChanged;
             _choiceGrid.Children.Add(_pickerCanvas);
-            PointerReleased += (sender, args) => PointerMoved -= UpdatingColor;
             _choiceGrid.Children.Add(new Rectangle
             {
                 Fill = new LinearGradientBrush
@@ -284,6 +299,13 @@ namespace UWPColor
             _choiceGrid.Loaded += _choiceGrid_Loaded;
             _spectreChoice.Loaded += _spectreChoice_Loaded;
             ActualColor = Colors.Red;
+        }
+
+        private void GridChoicePointerReleased(object sender, PointerRoutedEventArgs pointerRoutedEventArgs)
+        {
+            PointerMoved -= UpdatingColor;
+            EndColor = ActualColor;
+            PointerReleased -= GridChoicePointerReleased;
         }
 
         private void _spectreChoice_Loaded(object sender, RoutedEventArgs e)
