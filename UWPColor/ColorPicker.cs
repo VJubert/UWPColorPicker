@@ -21,19 +21,19 @@ namespace UWPColor
         private Grid _gridEllipse;
         private double _x;
         private double _y;
-        private bool _spectrChanged;
+        private bool _actualColorChanged;
 
         public static readonly DependencyProperty EndColorProperty = DependencyProperty.Register(
-            "EndColor", typeof (Color), typeof (ColorPicker), new PropertyMetadata(default(Color)));
+            "EndColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
 
         public Color EndColor
         {
-            get { return (Color) GetValue(EndColorProperty); }
+            get { return (Color)GetValue(EndColorProperty); }
             set { SetValue(EndColorProperty, value); }
         }
 
         public static readonly DependencyProperty SpectrePointerColorProperty = DependencyProperty.Register(
-            "SpectrePointerColor", typeof (Color), typeof (ColorPicker), new PropertyMetadata(default(Color), SpectrePointerColorChangedCallback));
+            "SpectrePointerColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), SpectrePointerColorChangedCallback));
 
         private static void SpectrePointerColorChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
@@ -43,12 +43,12 @@ namespace UWPColor
 
         private void UpdateSpectrePointerColor()
         {
-            _fleche.Fill=new SolidColorBrush(SpectrePointerColor);
+            _fleche.Fill = new SolidColorBrush(SpectrePointerColor);
         }
 
         public Color SpectrePointerColor
         {
-            get { return (Color) GetValue(SpectrePointerColorProperty); }
+            get { return (Color)GetValue(SpectrePointerColorProperty); }
             set { SetValue(SpectrePointerColorProperty, value); }
         }
 
@@ -63,14 +63,14 @@ namespace UWPColor
 
         private void UpdateActualColor()
         {
-            double[] hsl = RgbToHsl(ActualColor);
-            Color v = HslToRgb(hsl[0], 1, 0.5);
-            _choiceGrid.Background = new SolidColorBrush(v);
-            if (!_spectrChanged)
+            if (!_actualColorChanged)
             {
+                double[] hsl = RgbToHsl(ActualColor);
+                Color v = HslToRgb(hsl[0], 1, 0.5);
+                _choiceGrid.Background = new SolidColorBrush(v);
                 _actSpectre = v;
             }
-            _spectrChanged = false;
+            _actualColorChanged = false;
             _actColor = new SolidColorBrush(ActualColor);
             _actColorElement.Fill = _actColor;
         }
@@ -169,7 +169,7 @@ namespace UWPColor
             x = x <= 0 ? 0 : x;
             Canvas.SetTop(_fleche, x);
             _actSpectre = HslToRgb(x / t * 360f, 1, 0.5);
-            _spectrChanged = true;
+            _actualColorChanged = true;
             ActualColor = RecalculerCouleur();
             ActualColorChanged?.Invoke(ActualColor);
             _actColorElement.Fill = new SolidColorBrush(ActualColor);
@@ -383,6 +383,7 @@ namespace UWPColor
             var actColor = Color.FromArgb(255, newr, newg, newb);
             _actColor = new SolidColorBrush(actColor);
             _actColorElement.Fill = _actColor;
+            _actualColorChanged = true;
             ActualColor = actColor;
             ActualColorChanged?.Invoke(actColor);
         }
