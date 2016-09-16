@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWPColor", "UWPColor\UWPColor.csproj", "{EE2A24E6-AE58-42BF-8F88-AF18FDD04206}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWPColorPickerTesting", "UWPColorPickerTesting\UWPColorPickerTesting.csproj", "{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,28 @@ Global
 		{EE2A24E6-AE58-42BF-8F88-AF18FDD04206}.Release|x64.Build.0 = Release|x64
 		{EE2A24E6-AE58-42BF-8F88-AF18FDD04206}.Release|x86.ActiveCfg = Release|x86
 		{EE2A24E6-AE58-42BF-8F88-AF18FDD04206}.Release|x86.Build.0 = Release|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|Any CPU.Build.0 = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|Any CPU.Deploy.0 = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|ARM.Build.0 = Debug|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|ARM.Deploy.0 = Debug|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x64.ActiveCfg = Debug|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x64.Build.0 = Debug|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x64.Deploy.0 = Debug|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x86.ActiveCfg = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x86.Build.0 = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Debug|x86.Deploy.0 = Debug|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|Any CPU.ActiveCfg = Release|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|ARM.ActiveCfg = Release|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|ARM.Build.0 = Release|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|ARM.Deploy.0 = Release|ARM
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x64.ActiveCfg = Release|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x64.Build.0 = Release|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x64.Deploy.0 = Release|x64
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x86.ActiveCfg = Release|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x86.Build.0 = Release|x86
+		{8DF8E15E-D63E-46CC-ABBA-7AFC65CAABA6}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
