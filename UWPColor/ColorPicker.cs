@@ -23,6 +23,8 @@ namespace UWPColor
         private double _y;
         private bool _actualColorChanged;
 
+        #region Disable for fixing
+        /*
         public static readonly DependencyProperty EndColorProperty = DependencyProperty.Register(
             "EndColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
 
@@ -31,6 +33,8 @@ namespace UWPColor
             get { return (Color)GetValue(EndColorProperty); }
             set { SetValue(EndColorProperty, value); }
         }
+        */
+        #endregion
 
         public static readonly DependencyProperty SpectrePointerColorProperty = DependencyProperty.Register(
             "SpectrePointerColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color), SpectrePointerColorChangedCallback));
@@ -65,8 +69,8 @@ namespace UWPColor
         {
             if (!_actualColorChanged)
             {
-                double[] hsl = RgbToHsl(ActualColor);
-                Color v = HslToRgb(hsl[0], 1, 0.5);
+                var hsl = RgbToHsl(ActualColor);
+                var v = HslToRgb(hsl[0], 1, 0.5);
                 _choiceGrid.Background = new SolidColorBrush(v);
                 _actSpectre = v;
             }
@@ -157,7 +161,7 @@ namespace UWPColor
         private void SpectreChoicePointerReleased(object sender, PointerRoutedEventArgs pointerRoutedEventArgs)
         {
             PointerMoved -= SpectreChoiceOnPointerPressed;
-            EndColor = ActualColor;
+            //EndColor = ActualColor;
             PointerReleased -= SpectreChoicePointerReleased;
         }
         private void SpectreChoiceOnPointerPressed(object sender, PointerRoutedEventArgs args)
@@ -294,7 +298,7 @@ namespace UWPColor
             SetColumn(_choiceGrid, 0);
             SetRow(_choiceGrid, 2);
 
-            Canvas flecheCanvas = new Canvas();
+            var flecheCanvas = new Canvas();
             flecheCanvas.SizeChanged += FlecheCanvasSizeChanged;
             _fleche = new Polygon
             {
@@ -324,19 +328,19 @@ namespace UWPColor
         private void GridChoicePointerReleased(object sender, PointerRoutedEventArgs pointerRoutedEventArgs)
         {
             PointerMoved -= UpdatingColor;
-            EndColor = ActualColor;
+            //EndColor = ActualColor;
             PointerReleased -= GridChoicePointerReleased;
         }
 
         private void _spectreChoice_Loaded(object sender, RoutedEventArgs e)
         {
-            double h = RgbToHsl(ActualColor)[0];
+            var h = RgbToHsl(ActualColor)[0];
             Canvas.SetTop(_fleche, (h / 360f) * _spectreChoice.ActualHeight);
         }
 
         private void _choiceGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            double[] hsl = RgbToHsl(ActualColor);
+            var hsl = RgbToHsl(ActualColor);
             UpdatePosition(_choiceGrid.ActualHeight * (1 - 2 * hsl[2]), _choiceGrid.ActualWidth * hsl[1]);
         }
 
@@ -435,9 +439,9 @@ namespace UWPColor
 
         public static double[] RgbToHsl(double r, double g, double b)
         {
-            double m1 = Math.Max(Math.Max(r, g), b);
-            double m2 = Math.Min(Math.Min(r, g), b);
-            double c = m1 - m2;
+            var m1 = Math.Max(Math.Max(r, g), b);
+            var m2 = Math.Min(Math.Min(r, g), b);
+            var c = m1 - m2;
             double h2;
             if (c == 0)
             {
@@ -455,9 +459,9 @@ namespace UWPColor
             {
                 h2 = (r - g) / c + 4;
             }
-            double h = 60f * h2;
-            double l = 0.5f * (m1 + m2);
-            double s = l == 1 ? 0 : c / m1;
+            var h = 60f * h2;
+            var l = 0.5f * (m1 + m2);
+            var s = l == 1 ? 0 : c / m1;
             return new[] { h, s, l / 255f };
 
         }

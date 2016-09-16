@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -13,7 +15,12 @@ namespace UWPColorPickerTesting
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext=new TestingVM();
+        }
+
+        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog=new TestDialog();
+            await dialog.ShowAsync();
         }
     }
 }
