@@ -340,8 +340,14 @@ namespace UWPColor
 
         private void _choiceGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            var hsl = RgbToHsl(ActualColor);
-            UpdatePosition(_choiceGrid.ActualHeight * (1 - 2 * hsl[2]), _choiceGrid.ActualWidth * hsl[1]);
+            double[] hsl = RgbToHsl(ActualColor);
+            var h = _choiceGrid.ActualHeight * (1 - 2 * hsl[2]);
+            h = h >= 0 ? h : 0;
+            h = h <= _choiceGrid.ActualHeight ? h : _choiceGrid.ActualHeight;
+            var w = _choiceGrid.ActualWidth * hsl[1];
+            w = w >= 0 ? w : 0;
+            w = w <= _choiceGrid.ActualWidth ? w : _choiceGrid.ActualWidth;
+            UpdatePosition(h, w);
         }
 
         private void FlecheCanvasSizeChanged(object sender, SizeChangedEventArgs e)
