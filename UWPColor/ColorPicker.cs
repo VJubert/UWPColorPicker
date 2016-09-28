@@ -50,6 +50,9 @@ namespace UWPColor
             _fleche.Fill = new SolidColorBrush(SpectrePointerColor);
         }
 
+        /// <summary>
+        /// Color for pointer at the left
+        /// </summary>
         public Color SpectrePointerColor
         {
             get { return (Color)GetValue(SpectrePointerColorProperty); }
@@ -79,6 +82,9 @@ namespace UWPColor
             _actColorElement.Fill = _actColor;
         }
 
+        /// <summary>
+        /// Actual color selected on the picker.
+        /// </summary>
         public Color ActualColor
         {
             get { return (Color)GetValue(ActualColorProperty); }
@@ -86,6 +92,10 @@ namespace UWPColor
         }
 
         public delegate void ActualColorEvent(Color newColor);
+       
+        /// <summary>
+        /// Event raised when the actual color <see cref="ActualColor"/>changed;
+        /// </summary>
         public event ActualColorEvent ActualColorChanged;
 
         private void DefGrid()
@@ -228,6 +238,9 @@ namespace UWPColor
             _pickerCanvas.Children.Add(_gridEllipse);
         }
 
+        /// <summary>
+        /// Initalises the view
+        /// </summary>
         public ColorPicker()
         {
             _actColor = new SolidColorBrush(_actSpectre);
@@ -398,6 +411,13 @@ namespace UWPColor
             ActualColorChanged?.Invoke(actColor);
         }
 
+        /// <summary>
+        /// Convert a hsl color to rgb (<see cref="Color"/>)
+        /// </summary>
+        /// <param name="h">Hue</param>
+        /// <param name="s">Saturation</param>
+        /// <param name="l">Lightness</param>
+        /// <returns>Rgb color</returns>
         public static Color HslToRgb(double h, double s, double l)
         {
             var c = (1 - Math.Abs(2 * l - 1)) * s;
@@ -443,6 +463,13 @@ namespace UWPColor
             return Color.FromArgb(255, (byte)((r + m) * 255), (byte)((g + m) * 255), (byte)((b + m) * 255));
         }
 
+        /// <summary>
+        /// Convert an rgb color to hsl
+        /// </summary>
+        /// <param name="r">Red</param>
+        /// <param name="g">Green</param>
+        /// <param name="b">Blue</param>
+        /// <returns>0 : hue / 1 : saturation / 2 : lightness</returns>
         public static double[] RgbToHsl(double r, double g, double b)
         {
             var m1 = Math.Max(Math.Max(r, g), b);
@@ -471,7 +498,12 @@ namespace UWPColor
             return new[] { h, s, l / 255f };
 
         }
-
+        
+        /// <summary>
+        /// Convert an rgb color to hsl
+        /// </summary>
+        /// <param name="value">Rgb Color <see cref="Color"/></param>
+        /// <returns>0 : hue / 1 : saturation / 2 : lightness</returns>
         public static double[] RgbToHsl(Color value)
         {
             return RgbToHsl(value.R, value.G, value.B);
